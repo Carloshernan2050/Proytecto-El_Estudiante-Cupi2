@@ -61,6 +61,11 @@ public class PanelInfoEstudiante extends JPanel
      * Etiqueta para la imagen.
      */
     private JLabel lblImagen;
+    
+    /**
+     * etiqueta sueldo
+     */
+    private JLabel lblSueldo;
 
     /**
      * Campo de texto donde se muestra el promedio.
@@ -86,6 +91,13 @@ public class PanelInfoEstudiante extends JPanel
      * campo de texto donde se muestra el semestre
      */
     private JTextField txtSemestre;
+    
+    /**
+     * campo de texto donde se muestra el sueldo del estudiante
+     */
+    private JTextField txtSueldo;
+    
+    
     // -----------------------------------------------------------------
     // Constructores
     // -----------------------------------------------------------------
@@ -98,7 +110,7 @@ public class PanelInfoEstudiante extends JPanel
         setLayout( new BorderLayout( ) );
 
         JPanel panelAux = new JPanel( );
-        panelAux.setLayout( new GridLayout( 5, 2 ) );
+        panelAux.setLayout( new GridLayout( 7, 2 ) );
         txtCodigo = new JTextField( );
         txtCodigo.setEditable( false );
         txtPromedio = new JTextField( );
@@ -109,17 +121,21 @@ public class PanelInfoEstudiante extends JPanel
         txtNombre.setEditable( false );
         txtSemestre = new JTextField( );
         txtSemestre.setEditable( false );
+        txtSueldo = new JTextField( );
+        txtSueldo.setEditable( false);
         lblPromedio = new JLabel( );
         lblCodigo = new JLabel( );
         lblNombre = new JLabel( );
         lblApellido = new JLabel( );
         lblSemestre = new JLabel( );
+        lblSueldo = new JLabel ( );
 
         lblPromedio.setText( "Promedio:" );
         lblCodigo.setText( "Código:" );
         lblNombre.setText( "Nombre:" );
         lblApellido.setText( "Apellido:" );
         lblSemestre.setText( "Semestre: " );
+        lblSueldo.setText( "Sueldo: ");
         panelAux.add( lblCodigo );
         panelAux.add( txtCodigo );
         panelAux.add( lblNombre );
@@ -130,6 +146,8 @@ public class PanelInfoEstudiante extends JPanel
         panelAux.add( txtPromedio );
         panelAux.add( lblSemestre );
         panelAux.add( txtSemestre );
+        panelAux.add( lblSueldo);
+        panelAux.add( txtSueldo);
 
         lblImagen = new JLabel( );
         ImageIcon icono = new ImageIcon( "./data/estudiante.png" );
@@ -150,9 +168,10 @@ public class PanelInfoEstudiante extends JPanel
      */
     public void actualizar( Estudiante pEstudiante )
     {
-        if( pEstudiante.calcularPromedioEstudiante( ) != -1 )
+    	double promedio = pEstudiante.calcularPromedioEstudiante();
+        if( promedio != -1 )
         {
-            txtPromedio.setText( pEstudiante.calcularPromedioEstudiante( ) + "" );
+            txtPromedio.setText( pEstudiante.formatearPromedio(promedio) );
         }
         else
         {
@@ -162,6 +181,7 @@ public class PanelInfoEstudiante extends JPanel
         txtNombre.setText( pEstudiante.darNombre( ) );
         txtApellido.setText( pEstudiante.darApellido( ) );
         txtSemestre.setText(String.valueOf(pEstudiante.darSemestre( )));
+        txtSueldo.setText(String.valueOf(pEstudiante.darSueldoFormateado( )));
     }
 
 }
